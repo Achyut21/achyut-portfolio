@@ -11,12 +11,7 @@ import { ScrollProgress } from "@/components/shared/scroll-progress";
 import { SmoothScrollProvider } from "@/components/shared/smooth-scroll-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import dynamic from "next/dynamic";
-
-const BlackHoleVideo = dynamic(
-  () => import("@/components/black-hole-video").then((mod) => mod.BlackHoleVideo),
-  { ssr: false }
-);
+import { FloatingSocials } from "@/components/shared/floating-socials";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -60,13 +55,13 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <BlackHoleVideo />
           <SmoothScrollProvider>
             <div className="relative flex min-h-screen flex-col">
               <Navbar />
               <main className="flex-1 pt-16">{children}</main>
               <Footer />
             </div>
+            <FloatingSocials />
             <ScrollToTop />
             <ScrollProgress />
             <SpeedInsights />

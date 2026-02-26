@@ -37,7 +37,7 @@ export function Hero() {
 
   return (
     <StarHeader>
-      <section className="relative py-12 md:py-24">
+      <section className="relative flex min-h-[calc(100vh-4rem)] items-center py-12">
         {/* Background elements with parallax effect */}
         <motion.div className="absolute inset-0 -z-10" style={{ y: yBg }}>
           <div className="absolute top-20 right-0 h-72 w-72 rounded-full bg-primary/5 opacity-70 blur-3xl" />
