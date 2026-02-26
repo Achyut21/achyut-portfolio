@@ -16,7 +16,6 @@ export function StarsCanvas() {
   }, []);
 
   if (!mounted) return null;
-  if (theme !== "dark") return null;
 
-  return <StarBackgroundCanvas />;
+  return <StarBackgroundCanvas isDark={theme === "dark"} />;
 }

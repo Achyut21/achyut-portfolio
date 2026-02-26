@@ -13,10 +13,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import dynamic from "next/dynamic";
 
-const StarsCanvas = dynamic(
-  () => import("@/components/star-background").then((mod) => mod.StarsCanvas),
-  { ssr: false }
-);
 const BlackHoleVideo = dynamic(
   () => import("@/components/black-hole-video").then((mod) => mod.BlackHoleVideo),
   { ssr: false }
@@ -64,7 +60,6 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <StarsCanvas />
           <BlackHoleVideo />
           <SmoothScrollProvider>
             <div className="relative flex min-h-screen flex-col">

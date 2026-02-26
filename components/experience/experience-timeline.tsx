@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { experiences } from "@/data/experience";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { StarHeader } from "@/components/shared/star-header";
 
 export function ExperienceTimeline() {
   const [activeTab, setActiveTab] = useState<string>("all");
@@ -33,22 +34,26 @@ export function ExperienceTimeline() {
   };
 
   return (
-    <section className="py-12 md:py-24">
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col items-center justify-center space-y-4 text-center"
-        >
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            Experience
-          </h1>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            My professional journey in development and research
-          </p>
-        </motion.div>
+    <>
+      <StarHeader>
+        <div className="container mx-auto px-4 py-12 md:px-6 md:py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-center space-y-4 text-center"
+          >
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Experience
+            </h1>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              My professional journey in development and research
+            </p>
+          </motion.div>
+        </div>
+      </StarHeader>
 
+      <div className="container mx-auto px-4 pb-12 md:px-6 md:pb-24">
         <div className="mt-8 flex justify-center">
           <Tabs defaultValue="all" className="w-full max-w-md">
             <TabsList className="grid w-full grid-cols-4">
@@ -150,6 +155,6 @@ export function ExperienceTimeline() {
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }

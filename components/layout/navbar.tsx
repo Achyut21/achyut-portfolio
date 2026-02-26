@@ -4,23 +4,17 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, X } from "lucide-react";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { cn } from "@/lib/utils";
 import { navItems } from "@/data/navigation";
-
-// Import but hide the visible button
 import { CommandPalette } from "@/components/ui/command-palette";
 import { ThreeDCard } from "@/components/3d-card";
 
-// Hoisted outside component — these never change, no reason to recreate per render
+// ─── Animation variants (hoisted — never recreated) ─────────────────────────
+
 const navbarVariants: Variants = {
-  hidden: {
-    y: -100,
-    opacity: 0,
-  },
+  hidden: { y: -100, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
@@ -35,10 +29,7 @@ const navbarVariants: Variants = {
   exit: {
     y: -100,
     opacity: 0,
-    transition: {
-      duration: 0.1,
-      ease: "easeInOut",
-    },
+    transition: { duration: 0.1, ease: "easeInOut" },
   },
 };
 
@@ -47,12 +38,23 @@ const itemVariants: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: 0.05 * i,
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
+    transition: { delay: 0.05 * i, duration: 0.5, ease: "easeOut" as const },
   }),
+};
+
+const mobileMenuVariants: Variants = {
+  closed: {
+    opacity: 0,
+    scale: 0.96,
+    y: -8,
+    transition: { duration: 0.15, ease: "easeIn" },
+  },
+  open: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.15, ease: "easeOut" },
+  },
 };
 
 const isScrolledBgClass =
@@ -61,18 +63,128 @@ const isScrolledBgClass =
 const notScrolledBgClass =
   "bg-background/20 backdrop-blur-sm border-[0.5px] border-white/10 dark:border-white/5";
 
+// ─── Mobile dropdown menu ────────────────────────────────────────────────────
+
+function MobileMenu({
+  isOpen,
+  onClose,
+  toggleButtonRef,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  toggleButtonRef: React.RefObject<HTMLButtonElement | null>;
+}) {
+  const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(target)
+      ) {
+        onClose();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose, toggleButtonRef]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+          />
+
+          {/* Floating dropdown card */}
+          <motion.div
+            ref={menuRef}
+            variants={mobileMenuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className="fixed top-[5rem] right-4 left-4 z-50 md:hidden"
+          >
+            <div className="overflow-hidden rounded-2xl border-[0.5px] border-white/20 bg-background/95 shadow-2xl shadow-black/50 backdrop-blur-xl dark:border-white/10">
+              <nav aria-label="Mobile navigation" className="p-3">
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={onClose}
+                      className={cn(
+                        "block rounded-xl px-4 py-3 text-[15px] font-medium transition-colors",
+                        isActive
+                          ? "bg-muted/80 text-primary"
+                          : "text-muted-foreground hover:bg-muted/40 hover:text-primary"
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  );
+                })}
+
+                {/* Resume download button */}
+                <div className="mt-2 border-t border-border/30 pt-2">
+                  <a
+                    href="/resume.pdf"
+                    download="Achyut_Katiyar_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-[15px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    Resume
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ─── Main navbar ─────────────────────────────────────────────────────────────
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Use ref for lastScrollY — avoids re-renders and prevents listener re-attachment
   const lastScrollYRef = useRef(0);
   const rafRef = useRef<number>(0);
+  const mobileMenuToggleRef = useRef<HTMLButtonElement>(null);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const handleScroll = useCallback(() => {
-    // Cancel any pending rAF to avoid stacking
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
@@ -81,7 +193,6 @@ export function Navbar() {
       const currentScrollY = window.scrollY;
       const lastY = lastScrollYRef.current;
 
-      // Only update state when values actually change
       const shouldHide = currentScrollY > lastY && currentScrollY > 100;
       const shouldBeScrolled = currentScrollY > 20;
 
@@ -99,7 +210,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Initialize from current scroll position to avoid flash on reload-while-scrolled
     lastScrollYRef.current = window.scrollY;
     setIsScrolled(window.scrollY > 20);
     setIsMounted(true);
@@ -135,7 +245,7 @@ export function Navbar() {
           >
             <ThreeDCard className="w-full">
               <div className="flex items-center justify-between">
-                {/* Logo with fixed width */}
+                {/* Logo */}
                 <div className="w-[160px]">
                   <Link
                     href="/"
@@ -151,7 +261,7 @@ export function Navbar() {
                   </Link>
                 </div>
 
-                {/* Desktop Navigation - Centered */}
+                {/* Desktop Navigation */}
                 <div className="hidden flex-1 justify-center md:flex">
                   <nav aria-label="Main navigation" className="flex items-center gap-1">
                     {navItems.map((item, i) => (
@@ -180,8 +290,8 @@ export function Navbar() {
                   </nav>
                 </div>
 
-                {/* Theme toggle - Right aligned with fixed width */}
-                <div className="flex w-[160px] justify-end">
+                {/* Right side — theme toggle + mobile hamburger */}
+                <div className="flex w-[160px] items-center justify-end gap-2">
                   <motion.div
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -189,66 +299,31 @@ export function Navbar() {
                   >
                     <ThemeSwitch />
                   </motion.div>
-                </div>
 
-                {/* Mobile Navigation */}
-                <Sheet>
-                  <motion.div
+                  {/* Mobile menu toggle */}
+                  <motion.button
+                    ref={mobileMenuToggleRef}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5, type: "spring" }}
-                    className="ml-4 md:hidden"
+                    onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                    className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-primary md:hidden"
+                    aria-label="Toggle menu"
                   >
-                    <SheetTrigger asChild>
-                      <Button variant="ghost" size="icon" className="rounded-full bg-muted/50">
-                        <Menu className="h-6 w-6" />
-                        <span className="sr-only">Toggle menu</span>
-                      </Button>
-                    </SheetTrigger>
-                  </motion.div>
-                  <SheetContent side="right" className="p-0">
-                    <div className="flex h-full flex-col">
-                      <div className="flex items-center justify-between p-6">
-                        <Link
-                          href="/"
-                          className="font-display text-2xl font-bold transition-colors hover:text-primary"
-                        >
-                          Achyut Katiyar
-                        </Link>
-                        <ThemeSwitch />
-                      </div>
-                      <nav aria-label="Mobile navigation" className="flex-1 px-6 py-8">
-                        <ul className="flex flex-col gap-1">
-                          {navItems.map((item, i) => (
-                            <motion.li
-                              key={item.href}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.1 * i, duration: 0.3 }}
-                            >
-                              <Link
-                                href={item.href}
-                                className={cn(
-                                  "block rounded-md px-4 py-3 text-lg font-medium transition-colors",
-                                  pathname === item.href
-                                    ? "bg-muted/60 text-primary"
-                                    : "text-muted-foreground hover:bg-muted/30 hover:text-primary"
-                                )}
-                              >
-                                {item.title}
-                              </Link>
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </nav>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                    {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                  </motion.button>
+                </div>
               </div>
             </ThreeDCard>
           </motion.header>
         )}
       </AnimatePresence>
+
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        toggleButtonRef={mobileMenuToggleRef}
+      />
     </>
   );
 }

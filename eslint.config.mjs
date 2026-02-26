@@ -1,19 +1,14 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
 import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
 
 const eslintConfig = defineConfig([
   // Next.js core-web-vitals (React, React Hooks, Next.js best practices + CWV as errors)
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextVitals,
+
+  // Next.js TypeScript rules
+  ...nextTs,
 
   // Global ignores
   globalIgnores([
@@ -31,6 +26,13 @@ const eslintConfig = defineConfig([
     rules: {
       // Prevent unescaped entities in JSX — we use &apos; consistently
       "react/no-unescaped-entities": "off",
+
+      // Allow setState in useEffect — needed for hydration guards (setMounted)
+      // and route-change side effects (navbar menu close)
+      "react-hooks/set-state-in-effect": "off",
+
+      // Disable refs rule — false positives with react-hook-form handleSubmit
+      "react-hooks/refs": "off",
 
       // Allow custom fonts loaded via next/font
       "@next/next/no-page-custom-font": "off",

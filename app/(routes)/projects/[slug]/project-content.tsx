@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { type Project } from "@/data/projects";
+import { StarHeader } from "@/components/shared/star-header";
 
 interface ProjectContentProps {
   project: Project;
@@ -15,15 +16,29 @@ interface ProjectContentProps {
 
 export function ProjectContent({ project }: ProjectContentProps) {
   return (
-    <section className="py-12 md:py-24">
-      <div className="container px-4 md:px-6">
-        <Button variant="ghost" className="mb-6" asChild>
-          <Link href="/projects">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Link>
-        </Button>
+    <>
+      <StarHeader>
+        <div className="container px-4 pt-12 md:px-6 md:pt-24">
+          <Button variant="ghost" className="mb-6" asChild>
+            <Link href="/projects">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Projects
+            </Link>
+          </Button>
 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              {project.title}
+            </h1>
+          </motion.div>
+        </div>
+      </StarHeader>
+
+      <div className="container px-4 pb-12 md:px-6 md:pb-24">
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr] lg:gap-12">
           <div>
             <motion.div
@@ -31,10 +46,6 @@ export function ProjectContent({ project }: ProjectContentProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {project.title}
-              </h1>
-
               {project.image && (
                 <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
                   <Image
@@ -121,6 +132,6 @@ export function ProjectContent({ project }: ProjectContentProps) {
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 }

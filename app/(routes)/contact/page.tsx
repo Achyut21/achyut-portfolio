@@ -7,16 +7,21 @@ import { ContactForm } from "@/components/contact/contact-form";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { socialLinks } from "@/data/social";
 import { getIconComponent } from "@/lib/icons";
+import { StarHeader } from "@/components/shared/star-header";
 
 export default function ContactPage() {
   return (
-    <section className="py-12 md:py-24">
-      <div className="container mx-auto px-4 md:px-6">
-        <SectionHeader
-          title="Get In Touch"
-          subtitle="Have a project in mind or want to collaborate? I'd love to hear from you!"
-        />
+    <>
+      <StarHeader>
+        <div className="container mx-auto px-4 py-12 md:px-6 md:py-24">
+          <SectionHeader
+            title="Get In Touch"
+            subtitle="Have a project in mind or want to collaborate? I'd love to hear from you!"
+          />
+        </div>
+      </StarHeader>
 
+      <div className="container mx-auto px-4 pb-12 md:px-6 md:pb-24">
         <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -81,6 +86,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </>
   );
 }
