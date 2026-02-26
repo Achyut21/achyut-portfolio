@@ -20,7 +20,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
-    <Card className="flex h-full flex-col overflow-hidden border-2 transition-all hover:border-primary">
+    <Card className="flex h-full flex-col overflow-hidden border-2 pt-0 transition-all hover:border-primary">
       {project.image && (
         <div className="relative aspect-video w-full overflow-hidden">
           <Image

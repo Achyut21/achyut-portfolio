@@ -12,10 +12,10 @@ import { getIconComponent } from "@/lib/icons";
 import { StarHeader } from "@/components/shared/star-header";
 
 const displayedSkills = [
+  "Software Engineer",
   "Full Stack Developer",
-  "Web3 Enthusiast",
-  "Machine Learning Practitioner",
-  "UI/UX Designer",
+  "Blockchain Builder",
+  "Systems Thinker",
 ];
 
 export function Hero() {
@@ -23,9 +23,8 @@ export function Hero() {
 
   // Parallax effect setup
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]); // Text moves slower
-  const y2 = useTransform(scrollY, [0, 500], [0, 250]); // Image moves faster
-  const yBg = useTransform(scrollY, [0, 1000], [0, 300]); // Background blobs
+  const y1 = useTransform(scrollY, [0, 800], [0, 40]);
+  const y2 = useTransform(scrollY, [0, 800], [0, 60]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,12 +37,6 @@ export function Hero() {
   return (
     <StarHeader>
       <section className="relative flex min-h-[calc(100vh-4rem)] items-center py-12">
-        {/* Background elements with parallax effect */}
-        <motion.div className="absolute inset-0 -z-10" style={{ y: yBg }}>
-          <div className="absolute top-20 right-0 h-72 w-72 rounded-full bg-primary/5 opacity-70 blur-3xl" />
-          <div className="absolute bottom-20 left-20 h-96 w-96 rounded-full bg-secondary/10 opacity-60 blur-3xl" />
-        </motion.div>
-
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <motion.div className="flex flex-col justify-center space-y-4" style={{ y: y1 }}>
@@ -84,9 +77,8 @@ export function Hero() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="max-w-[600px] text-muted-foreground md:text-xl"
                 >
-                  A passionate developer with expertise in Next.js, React, Tailwind CSS, and
-                  blockchain technologies. Currently pursuing a Master&apos;s in Computer Science at
-                  Northeastern University.
+                  Software engineer building full-stack applications and decentralized systems. MS
+                  Computer Science at Northeastern University. Co-Chair of MIT Bitcoin Expo.
                 </motion.p>
               </div>
 

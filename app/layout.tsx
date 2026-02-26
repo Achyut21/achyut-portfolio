@@ -3,22 +3,32 @@ import { ClientLayout } from "./client-layout";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Achyut Katiyar | Full Stack Developer",
+  title: "Achyut Katiyar | Software Engineer",
   description:
-    "Full Stack Developer & Machine Learning Enthusiast with expertise in Next.js, React, and blockchain technologies.",
+    "Software Engineer building full-stack applications and decentralized systems. MS Computer Science at Northeastern University. Co-Chair of MIT Bitcoin Expo.",
   metadataBase: new URL("https://achyutkatiyar.com"),
 
   // Basic metadata
   applicationName: "Achyut Katiyar Portfolio",
   authors: [{ name: "Achyut Katiyar" }],
-  keywords: ["Full Stack Developer", "Web3", "Blockchain", "Next.js", "React", "Machine Learning"],
+  keywords: [
+    "Software Engineer",
+    "Full Stack Developer",
+    "Blockchain",
+    "Web3",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Northeastern University",
+    "MIT Bitcoin Expo",
+  ],
 
   openGraph: {
     type: "website",
     url: "https://achyutkatiyar.com",
-    title: "Achyut Katiyar | Full Stack Developer",
+    title: "Achyut Katiyar | Software Engineer",
     description:
-      "Full Stack Developer & Blockchain and Machine Learning Enthusiast with expertise in Next.js, React, and blockchain technologies.",
+      "Software Engineer building full-stack applications and decentralized systems. MS CS at Northeastern. Co-Chair of MIT Bitcoin Expo.",
     siteName: "Achyut Katiyar",
     locale: "en_US",
     images: [

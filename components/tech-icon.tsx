@@ -10,6 +10,9 @@ interface TechIconProps {
   className?: string;
 }
 
+// Icons that are pure black/dark and need inversion on dark backgrounds
+const darkLogoKeys = new Set(["nextjs", "express", "threejs", "flask", "github", "markdown"]);
+
 export function TechIcon({ logoKey, name, className = "h-5 w-5" }: TechIconProps) {
   const getIconUrl = () => {
     if (logoKey === "nextjs")
@@ -43,7 +46,7 @@ export function TechIcon({ logoKey, name, className = "h-5 w-5" }: TechIconProps
       alt={`${name} logo`}
       width={20}
       height={20}
-      className={`${className} object-contain`}
+      className={`${className} object-contain ${darkLogoKeys.has(logoKey) ? "dark:invert" : ""}`}
       onError={() => {
         if (!usedFallback) {
           setSrc(getFallbackUrl());

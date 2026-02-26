@@ -12,7 +12,42 @@ export interface Experience {
 }
 
 export const experiences: Experience[] = [
-  // Regular job positions
+  // ── Current Roles ──────────────────────────────────────────────────
+  {
+    id: "mit-bitcoin-expo",
+    title: "Co-Chair, Hackathon & Marketing",
+    company: "MIT Bitcoin Expo",
+    location: "Cambridge, Massachusetts, USA",
+    startDate: "January 2026",
+    endDate: "Present",
+    description:
+      "Co-chairing the hackathon and marketing efforts for the 13th Annual MIT Bitcoin Expo, the longest-running university-hosted Bitcoin event.",
+    achievements: [
+      "Co-chair of the 36-hour hackathon with a community-first prize model (70% shared among qualifying participants)",
+      "Designed and built the official event website (mitbitcoinexpo.org) with Next.js, Three.js, and Vercel",
+      "Coordinated speaker lineup, sponsor outreach, and marketing campaigns for the April 2026 conference",
+      "Managing cross-functional collaboration across engineering, design, and operations teams",
+    ],
+    type: "leadership",
+  },
+  {
+    id: "ta-cs2000",
+    title: "Teaching Assistant — CS2000",
+    company: "Northeastern University",
+    location: "Boston, Massachusetts, USA",
+    startDate: "September 2025",
+    endDate: "Present",
+    description:
+      "Serving as a Teaching Assistant for CS2000, supporting students across two consecutive semesters.",
+    achievements: [
+      "Supporting students through office hours, grading, and one-on-one mentoring across Fall 2025 and Spring 2026",
+      "Assisting the instructor with course logistics, assignment feedback, and classroom support",
+      "Providing guidance to students on coursework and academic development",
+    ],
+    type: "work",
+  },
+
+  // ── Previous Work Experience ───────────────────────────────────────
   {
     id: "full-stack-dev",
     title: "Full Stack Web Developer",
@@ -47,7 +82,8 @@ export const experiences: Experience[] = [
     ],
     type: "work",
   },
-  // Research positions
+
+  // ── Research ───────────────────────────────────────────────────────
   {
     id: "ddos-detection",
     title: "DDoS Attack Detection using Deep Learning",
@@ -82,6 +118,8 @@ export const experiences: Experience[] = [
     ],
     type: "research",
   },
+
+  // ── Leadership ─────────────────────────────────────────────────────
   {
     id: "technical-executive",
     title: "Technical Executive",

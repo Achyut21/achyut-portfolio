@@ -7,12 +7,27 @@ import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import { StarHeader } from "@/components/shared/star-header";
 
-const allTechnologies = Array.from(
-  new Set(projects.flatMap((project) => project.technologies))
-).sort();
+// Sort technologies by usage frequency (most used first), then alphabetically for ties
+const technologyCounts = new Map<string, number>();
+for (const project of projects) {
+  for (const tech of project.technologies) {
+    technologyCounts.set(tech, (technologyCounts.get(tech) ?? 0) + 1);
+  }
+}
+const allTechnologies = Array.from(technologyCounts.keys()).sort((a, b) => {
+  const diff = (technologyCounts.get(b) ?? 0) - (technologyCounts.get(a) ?? 0);
+  return diff !== 0 ? diff : a.localeCompare(b);
+});
+
+const VISIBLE_FILTER_COUNT = 10;
 
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [showAllFilters, setShowAllFilters] = useState(false);
+
+  const visibleTechnologies = showAllFilters
+    ? allTechnologies
+    : allTechnologies.slice(0, VISIBLE_FILTER_COUNT);
 
   const filteredProjects = activeFilter
     ? projects.filter((project) => project.technologies.includes(activeFilter))
@@ -43,9 +58,8 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8"
         >
-          <div className="mb-8 flex flex-wrap justify-center gap-2">
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
             <Badge
               variant={activeFilter === null ? "default" : "outline"}
               className="cursor-pointer px-3 py-2 text-sm"
@@ -53,7 +67,7 @@ export default function ProjectsPage() {
             >
               All
             </Badge>
-            {allTechnologies.map((tech) => (
+            {visibleTechnologies.map((tech) => (
               <Badge
                 key={tech}
                 variant={activeFilter === tech ? "default" : "outline"}
@@ -63,10 +77,20 @@ export default function ProjectsPage() {
                 {tech}
               </Badge>
             ))}
+            {allTechnologies.length > VISIBLE_FILTER_COUNT && (
+              <Badge
+                className="cursor-pointer bg-primary/15 px-3 py-2 text-sm text-primary hover:bg-primary/25"
+                onClick={() => setShowAllFilters((prev) => !prev)}
+              >
+                {showAllFilters
+                  ? "Show less"
+                  : `+${allTechnologies.length - VISIBLE_FILTER_COUNT} more`}
+              </Badge>
+            )}
           </div>
         </motion.div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}

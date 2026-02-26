@@ -19,6 +19,12 @@ export const achievements: Achievement[] = [
     colorClass: "text-blue-600 dark:text-blue-400",
   },
   {
+    id: "optimum-hacknet",
+    title: "Winner of Optimum Hacknet @ MIT ($500 Prize)",
+    icon: "trophy",
+    colorClass: "text-orange-600 dark:text-orange-400",
+  },
+  {
     id: "hacksrm",
     title: "Winner of HackSRM 5.0 ($500 Prize)",
     icon: "award",
@@ -29,6 +35,12 @@ export const achievements: Achievement[] = [
     title: "Winner of Appthon 1.0",
     icon: "trophy",
     colorClass: "text-purple-600 dark:text-purple-400",
+  },
+  {
+    id: "mit-bitcoin-expo",
+    title: "Co-Chair of MIT Bitcoin Expo (Hackathon & Marketing)",
+    icon: "code",
+    colorClass: "text-amber-600 dark:text-amber-400",
   },
   {
     id: "add-convener",
@@ -52,7 +64,7 @@ export const achievements: Achievement[] = [
     id: "valorant",
     title: "3x Valorant Tournament Champion",
     icon: "gamepad",
-    colorClass: "text-amber-600 dark:text-amber-400",
+    colorClass: "text-cyan-600 dark:text-cyan-400",
   },
   {
     id: "infinitus",
