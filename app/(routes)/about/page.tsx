@@ -5,21 +5,19 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { education } from "@/data/education";
-import { skills, SkillCategory } from "@/data/skills";
+import { skills, type SkillCategory } from "@/data/skills";
 
 export default function AboutPage() {
   return (
     <section className="py-12 md:py-24">
-      <div className="container px-4 md:px-6 mx-auto">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center justify-center space-y-4 text-center mb-12"
+          className="mb-12 flex flex-col items-center justify-center space-y-4 text-center"
         >
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            About Me
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">About Me</h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             Get to know more about my background and skills
           </p>
@@ -31,20 +29,29 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h2 className="text-2xl font-bold mb-4">Who I Am</h2>
+            <h2 className="mb-4 text-2xl font-bold">Who I Am</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                I&apos;m Achyut Katiyar, a Full Stack Developer with a passion for creating innovative web applications and exploring blockchain technologies. I&apos;m currently pursuing a Master&apos;s in Computer Science at Northeastern University, where I continue to expand my knowledge and skills.
+                I&apos;m Achyut Katiyar, a Full Stack Developer with a passion for creating
+                innovative web applications and exploring blockchain technologies. I&apos;m
+                currently pursuing a Master&apos;s in Computer Science at Northeastern University,
+                where I continue to expand my knowledge and skills.
               </p>
               <p>
-                With expertise in Next.js, React, and various blockchain technologies, I enjoy building scalable and user-friendly applications that solve real-world problems. My background in computer science has given me a strong foundation in algorithms, data structures, and system design, which I apply to create efficient and maintainable code.
+                With expertise in Next.js, React, and various blockchain technologies, I enjoy
+                building scalable and user-friendly applications that solve real-world problems. My
+                background in computer science has given me a strong foundation in algorithms, data
+                structures, and system design, which I apply to create efficient and maintainable
+                code.
               </p>
               <p>
-                I&apos;m particularly interested in the intersection of web development and blockchain technology, where I&apos;ve developed several projects that leverage the power of decentralized systems to create secure and transparent applications.
+                I&apos;m particularly interested in the intersection of web development and
+                blockchain technology, where I&apos;ve developed several projects that leverage the
+                power of decentralized systems to create secure and transparent applications.
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mt-8 mb-4">Education</h2>
+            <h2 className="mt-8 mb-4 text-2xl font-bold">Education</h2>
             <div className="space-y-4">
               {education.map((edu) => (
                 <Card key={edu.id}>
@@ -57,7 +64,7 @@ export default function AboutPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <div className="flex justify-between items-center text-sm">
+                    <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">
                         {edu.startDate} - {edu.endDate}
                       </span>
@@ -68,9 +75,7 @@ export default function AboutPage() {
                         CGPA: {edu.gpa}
                       </Badge>
                     )}
-                    {edu.description && (
-                      <p className="mt-2 text-sm">{edu.description}</p>
-                    )}
+                    {edu.description && <p className="mt-2 text-sm">{edu.description}</p>}
                   </CardContent>
                 </Card>
               ))}
@@ -82,11 +87,11 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h2 className="text-2xl font-bold mb-4">Skills</h2>
-            
+            <h2 className="mb-4 text-2xl font-bold">Skills</h2>
+
             {Object.keys(skills).map((category) => (
               <div key={category} className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">{category}</h3>
+                <h3 className="mb-3 text-lg font-semibold">{category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {skills[category as SkillCategory].map((skill) => (
                     <Badge key={skill.name} variant="secondary">
@@ -97,45 +102,40 @@ export default function AboutPage() {
               </div>
             ))}
 
-            <h2 className="text-2xl font-bold mt-8 mb-4">Achievements</h2>
+            <h2 className="mt-8 mb-4 text-2xl font-bold">Achievements</h2>
             <Card>
               <CardContent className="p-4">
                 <ul className="space-y-3">
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
+                    <span className="mr-2 font-bold text-primary">•</span>
                     <span>
-                      Led University&apos;s Technical Team as Convener, increasing student engagement by 40% through committee formation and industry-aligned website redesigns.
+                      Led University&apos;s Technical Team as Convener, increasing student
+                      engagement by 40% through committee formation and industry-aligned website
+                      redesigns.
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
+                    <span className="mr-2 font-bold text-primary">•</span>
                     <span>
-                      Served as a Board Member of the APP Design and Development Club, mentoring newcomers and improving skills by 60%.
+                      Served as a Board Member of the APP Design and Development Club, mentoring
+                      newcomers and improving skills by 60%.
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
-                    <span>
-                      Won $1500 Nillion Track Prize at Hacker House Goa 2024.
-                    </span>
+                    <span className="mr-2 font-bold text-primary">•</span>
+                    <span>Won $1500 Nillion Track Prize at Hacker House Goa 2024.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
-                    <span>
-                      Awarded $600 at Move it with Aptos event.
-                    </span>
+                    <span className="mr-2 font-bold text-primary">•</span>
+                    <span>Awarded $600 at Move it with Aptos event.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
-                    <span>
-                      Received $500 Marbelism Track Prize at HACKSRM 2.0 2024.
-                    </span>
+                    <span className="mr-2 font-bold text-primary">•</span>
+                    <span>Received $500 Marbelism Track Prize at HACKSRM 2.0 2024.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-primary mr-2 font-bold">•</span>
-                    <span>
-                      Won $100 at APPATHON 2022.
-                    </span>
+                    <span className="mr-2 font-bold text-primary">•</span>
+                    <span>Won $100 at APPATHON 2022.</span>
                   </li>
                 </ul>
               </CardContent>

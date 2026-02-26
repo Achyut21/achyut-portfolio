@@ -1,23 +1,26 @@
 // components/ui/command-palette.tsx
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { Search, ArrowRight, Home, User, Briefcase, Code, BookOpen, Mail, Github, Linkedin, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Search,
+  ArrowRight,
+  Home,
+  User,
+  Briefcase,
+  Code,
+  BookOpen,
+  Mail,
+  Github,
+  Linkedin,
+  Phone,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { socialLinks } from "@/data/social";
-
-// Define navItems directly instead of importing
-const navItems = [
-  { title: "Home", href: "/" },
-  { title: "About", href: "/about" },
-  { title: "Experience", href: "/experience" },
-  { title: "Projects", href: "/projects" },
-  { title: "Blog", href: "/blog" },
-  { title: "Contact", href: "/contact" },
-];
+import { navItems } from "@/data/navigation";
 
 // Get icon for navigation items
 const getNavIcon = (href: string) => {
@@ -63,25 +66,25 @@ export function CommandPalette() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   if (!mounted) return null;
 
   // Filter items based on search query
-  const filteredNavItems = navItems.filter((item) => 
+  const filteredNavItems = navItems.filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase())
   );
-  
+
   const filteredSocialLinks = socialLinks.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -91,18 +94,18 @@ export function CommandPalette() {
       <Button
         variant="outline"
         size="icon"
-        className="w-9 h-9 rounded-md hidden md:flex"
+        className="hidden h-9 w-9 rounded-md md:flex"
         onClick={() => setOpen(true)}
       >
         <Search className="h-4 w-4" />
         <span className="sr-only">Search</span>
       </Button>
-      
+
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="p-0 max-w-md gap-0">
+        <DialogContent className="max-w-md gap-0 p-0">
           {/* Add DialogTitle for accessibility */}
           <DialogTitle className="sr-only">Command Menu</DialogTitle>
-          
+
           <div className="flex items-center border-b px-3">
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <input
@@ -119,7 +122,9 @@ export function CommandPalette() {
               <>
                 {filteredNavItems.length > 0 && (
                   <div className="p-2">
-                    <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">Navigation</p>
+                    <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      Navigation
+                    </p>
                     <div className="mt-2 space-y-1">
                       {filteredNavItems.map((item) => (
                         <div
@@ -139,7 +144,7 @@ export function CommandPalette() {
                     </div>
                   </div>
                 )}
-                
+
                 {filteredSocialLinks.length > 0 && (
                   <div className="p-2">
                     <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">Social</p>
@@ -151,7 +156,7 @@ export function CommandPalette() {
                             "flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
                           )}
                           onClick={() => {
-                            window.open(social.url, '_blank');
+                            window.open(social.url, "_blank");
                             setOpen(false);
                           }}
                         >

@@ -43,7 +43,7 @@ This portfolio website showcases my projects, experience, and skills with a focu
 
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: Tailwind CSS v4
-- **Animations**: 
+- **Animations**:
   - Framer Motion
   - Three.js (for starry background)
 - **UI Components**: shadcn/ui
@@ -61,12 +61,14 @@ This portfolio website showcases my projects, experience, and skills with a focu
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/portfolio-website.git
    cd portfolio-website
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -74,6 +76,7 @@ This portfolio website showcases my projects, experience, and skills with a focu
    ```
 
 3. Run the development server:
+
    ```bash
    npm run dev
    # or
@@ -173,14 +176,17 @@ If you'd like to use this template for your own portfolio website, you are welco
 ### Example Attribution
 
 For your README:
+
 ```markdown
-This portfolio is based on [Achyut Katiyar's Portfolio Template](https://github.com/achyut21/portfolio-website), 
+This portfolio is based on [Achyut Katiyar's Portfolio Template](https://github.com/achyut21/portfolio-website),
 customized with my personal information and projects.
 ```
 
 For your website footer:
+
 ```html
-Design inspired by <a href="https://github.com/achyut21" target="_blank" rel="noopener noreferrer">Achyut Katiyar</a>
+Design inspired by
+<a href="https://github.com/achyut21" target="_blank" rel="noopener noreferrer">Achyut Katiyar</a>
 ```
 
 ## Deployment

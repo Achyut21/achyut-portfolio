@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from 'react';
-import { Code } from 'lucide-react';
+import { useState } from "react";
+import Image from "next/image";
+import { Code } from "lucide-react";
 
 interface TechIconProps {
   logoKey: string;
@@ -10,41 +11,44 @@ interface TechIconProps {
 }
 
 export function TechIcon({ logoKey, name, className = "h-5 w-5" }: TechIconProps) {
-  const [imageError, setImageError] = useState(false);
-  
-  // Try several icon variations in case some don't exist
   const getIconUrl = () => {
-    // For special cases
-    if (logoKey === 'nextjs') return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg';
-    if (logoKey === 'tailwindcss') return 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg';
-    
-    // Standard path
+    if (logoKey === "nextjs")
+      return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg";
+    if (logoKey === "tailwindcss")
+      return "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg";
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${logoKey}/${logoKey}-original.svg`;
   };
-  
-  // Fallbacks for when original icon doesn't exist
+
   const getFallbackUrl = () => {
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${logoKey}/${logoKey}-plain.svg`;
   };
-  
+
+  const [src, setSrc] = useState(getIconUrl());
+  const [usedFallback, setUsedFallback] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   if (imageError) {
-    return <div className={`${className} flex items-center justify-center bg-primary/10 text-primary rounded`}>
-      <Code className="h-3 w-3" />
-    </div>;
+    return (
+      <div
+        className={`${className} flex items-center justify-center rounded bg-primary/10 text-primary`}
+      >
+        <Code className="h-3 w-3" />
+      </div>
+    );
   }
-  
+
   return (
-    <img 
-      src={getIconUrl()}
+    <Image
+      src={src}
       alt={`${name} logo`}
+      width={20}
+      height={20}
       className={`${className} object-contain`}
-      onError={(e) => {
-        const target = e.currentTarget;
-        // Try plain version as fallback
-        if (target.src !== getFallbackUrl()) {
-          target.src = getFallbackUrl();
+      onError={() => {
+        if (!usedFallback) {
+          setSrc(getFallbackUrl());
+          setUsedFallback(true);
         } else {
-          // If both fail, show fallback element
           setImageError(true);
         }
       }}

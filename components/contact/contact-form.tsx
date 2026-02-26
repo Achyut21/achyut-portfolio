@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,17 @@ const formSchema = z.object({
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup timeout if component unmounts mid-submission
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   // Initialize form with validation
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,12 +62,14 @@ export function ContactForm() {
   // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    
-    setTimeout(() => {
-      console.log(values);
+
+    timeoutRef.current = setTimeout(() => {
+      // TODO: Wire up contact form backend (e.g. Resend, SendGrid)
+      void values;
       setIsSubmitting(false);
       setIsSubmitted(true);
       form.reset();
+      timeoutRef.current = null;
     }, 1500);
   }
 
@@ -92,7 +104,7 @@ export function ContactForm() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-center text-muted-foreground max-w-md"
+            className="max-w-md text-center text-muted-foreground"
           >
             Thank you for reaching out. I&apos;ll get back to you as soon as possible.
           </motion.p>
@@ -101,11 +113,7 @@ export function ContactForm() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <Button
-              variant="outline"
-              onClick={() => setIsSubmitted(false)}
-              className="mt-4"
-            >
+            <Button variant="outline" onClick={() => setIsSubmitted(false)} className="mt-4">
               Send Another Message
             </Button>
           </motion.div>
@@ -167,7 +175,7 @@ export function ContactForm() {
                     <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="I&apos;d like to discuss a project opportunity..."
+                        placeholder="I'd like to discuss a project opportunity..."
                         className="min-h-32 resize-none"
                         {...field}
                       />

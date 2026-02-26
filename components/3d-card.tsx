@@ -1,44 +1,40 @@
 "use client";
 
-import { useState, useRef } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface ThreeDCardProps {
   children: React.ReactNode;
   className?: string;
 }
 
+const springConfig = { damping: 15, stiffness: 300 };
+
 export function ThreeDCard({ children, className }: ThreeDCardProps) {
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Motion values instead of useState — updates bypass React's render cycle entirely
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const smoothRotateX = useSpring(rotateX, springConfig);
+  const smoothRotateY = useSpring(rotateY, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
-    
+
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    
-    // Limit the rotation to a subtle amount
-    const rotateXValue = ((mouseY - centerY) / (rect.height / 2)) * 2; // reduced from 5
-    const rotateYValue = ((mouseX - centerX) / (rect.width / 2)) * 2; // reduced from 5
-    
-    setRotateX(-rotateXValue);
-    setRotateY(rotateYValue);
-  };
-  
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
+
+    // Directly set motion values — no setState, no re-render
+    rotateX.set(-((e.clientY - centerY) / (rect.height / 2)) * 2);
+    rotateY.set(((e.clientX - centerX) / (rect.width / 2)) * 2);
   };
 
-  const springConfig = { damping: 15, stiffness: 300 };
-  const rotateXSpring = useSpring(rotateX, springConfig);
-  const rotateYSpring = useSpring(rotateY, springConfig);
+  const handleMouseLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
 
   return (
     <motion.div
@@ -47,8 +43,10 @@ export function ThreeDCard({ children, className }: ThreeDCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        transformStyle: 'preserve-3d',
-        transform: `perspective(1000px) rotateX(${rotateXSpring}deg) rotateY(${rotateYSpring}deg)`,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
+        rotateX: smoothRotateX,
+        rotateY: smoothRotateY,
       }}
     >
       {children}

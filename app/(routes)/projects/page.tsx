@@ -14,14 +14,12 @@ export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   const filteredProjects = activeFilter
-    ? projects.filter((project) =>
-        project.technologies.includes(activeFilter)
-      )
+    ? projects.filter((project) => project.technologies.includes(activeFilter))
     : projects;
 
   return (
     <section className="py-12 md:py-24">
-      <div className="container px-4 md:px-6 mx-auto">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,10 +40,10 @@ export default function ProjectsPage() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-8"
         >
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="mb-8 flex flex-wrap justify-center gap-2">
             <Badge
               variant={activeFilter === null ? "default" : "outline"}
-              className="cursor-pointer text-sm py-2 px-3"
+              className="cursor-pointer px-3 py-2 text-sm"
               onClick={() => setActiveFilter(null)}
             >
               All
@@ -54,7 +52,7 @@ export default function ProjectsPage() {
               <Badge
                 key={tech}
                 variant={activeFilter === tech ? "default" : "outline"}
-                className="cursor-pointer text-sm py-2 px-3"
+                className="cursor-pointer px-3 py-2 text-sm"
                 onClick={() => setActiveFilter(tech)}
               >
                 {tech}
@@ -63,7 +61,7 @@ export default function ProjectsPage() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -77,7 +75,7 @@ export default function ProjectsPage() {
         </div>
 
         {filteredProjects.length === 0 && (
-          <div className="text-center py-12">
+          <div className="py-12 text-center">
             <p className="text-muted-foreground">
               No projects found with the selected technology. Please try another filter.
             </p>

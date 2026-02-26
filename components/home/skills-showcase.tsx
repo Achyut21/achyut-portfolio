@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TechIcon } from "@/components/tech-icon";
 import { Badge } from "@/components/ui/badge";
-import { skills, SkillCategory } from "@/data/skills";
-
+import { skills, type SkillCategory } from "@/data/skills";
 
 export function SkillsShowcase() {
   const [selectedCategory, setSelectedCategory] = useState<SkillCategory>("Languages");
@@ -14,7 +13,7 @@ export function SkillsShowcase() {
 
   return (
     <section className="py-12 md:py-24">
-      <div className="container px-4 md:px-6 mx-auto max-w-6xl text-center">
+      <div className="container mx-auto max-w-6xl px-4 text-center md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,12 +36,14 @@ export function SkillsShowcase() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-8 md:mt-12"
         >
-          <Tabs defaultValue="Languages" 
+          <Tabs
+            defaultValue="Languages"
             value={selectedCategory}
             onValueChange={(value) => setSelectedCategory(value as SkillCategory)}
-            className="w-full">
-            <div className="flex justify-center mb-8">
-              <TabsList className="flex flex-wrap gap-2 h-auto">
+            className="w-full"
+          >
+            <div className="mb-8 flex justify-center">
+              <TabsList className="flex h-auto flex-wrap gap-2">
                 {categories.map((category) => (
                   <TabsTrigger
                     key={category}
@@ -54,11 +55,11 @@ export function SkillsShowcase() {
                 ))}
               </TabsList>
             </div>
-            
+
             {categories.map((category) => (
               <TabsContent key={category} value={category} className="w-full">
-                <div className="bg-muted/50 rounded-lg p-6">
-                  <div className="flex flex-wrap gap-3 justify-center">
+                <div className="rounded-lg bg-muted/50 p-6">
+                  <div className="flex flex-wrap justify-center gap-3">
                     {skills[category].map((skill, index) => (
                       <motion.div
                         key={skill.name}
@@ -66,13 +67,13 @@ export function SkillsShowcase() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: index * 0.05 }}
                       >
-                    <Badge 
-                        variant="outline" 
-                        className="text-sm py-2 px-4 bg-background hover:bg-accent transition-colors flex items-center gap-2"
+                        <Badge
+                          variant="outline"
+                          className="flex items-center gap-2 bg-background px-4 py-2 text-sm transition-colors hover:bg-accent"
                         >
-                        <TechIcon logoKey={skill.logoKey} name={skill.name} className="h-5 w-5" />
-                        {skill.name}
-                    </Badge>
+                          <TechIcon logoKey={skill.logoKey} name={skill.name} className="h-5 w-5" />
+                          {skill.name}
+                        </Badge>
                       </motion.div>
                     ))}
                   </div>

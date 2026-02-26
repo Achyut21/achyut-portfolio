@@ -11,33 +11,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Project } from "@/data/projects";
+import { type Project } from "@/data/projects";
 
 interface ProjectCardProps {
   project: Project;
+  priority?: boolean;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
-    <Card className="h-full flex flex-col overflow-hidden border-2 transition-all hover:border-primary">
-    {project.image && (
-        <div className="aspect-video overflow-hidden relative w-full">
-            <Image
+    <Card className="flex h-full flex-col overflow-hidden border-2 transition-all hover:border-primary">
+      {project.image && (
+        <div className="relative aspect-video w-full overflow-hidden">
+          <Image
             src={project.image}
             alt={project.title}
-            className="object-cover object-top"
+            className="object-cover object-top transition-transform hover:scale-105"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={project.featured}
-            />
+            priority={priority}
+          />
         </div>
-        )}
+      )}
       <CardHeader>
         <CardTitle>{project.title}</CardTitle>
         <CardDescription>{project.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="mb-4 flex flex-wrap gap-2">
           {project.technologies.slice(0, 4).map((tech) => (
             <Badge key={tech} variant="secondary">
               {tech}
@@ -50,7 +51,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <ul className="space-y-2 text-sm text-muted-foreground">
           {project.achievements.slice(0, 2).map((achievement, i) => (
             <li key={i} className="flex items-start">
-              <ArrowRight className="mr-2 h-4 w-4 text-primary mt-0.5 shrink-0" />
+              <ArrowRight className="mt-0.5 mr-2 h-4 w-4 shrink-0 text-primary" />
               <span>{achievement}</span>
             </li>
           ))}
@@ -73,7 +74,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
         {project.liveUrl && (
           <Button asChild variant="ghost" size="icon">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Live Demo"
+            >
               <ExternalLink className="h-4 w-4" />
             </a>
           </Button>

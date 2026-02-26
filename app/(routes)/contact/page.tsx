@@ -1,38 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+
 import { SectionHeader } from "@/components/shared/section-header";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { socialLinks } from "@/data/social";
+import { getIconComponent } from "@/lib/icons";
 
 export default function ContactPage() {
-  // Get icon component for social links
-  const getIconComponent = (iconName: string) => {
-    switch (iconName) {
-      case "github":
-        return <Github className="h-5 w-5" />;
-      case "linkedin":
-        return <Linkedin className="h-5 w-5" />;
-      case "mail":
-        return <Mail className="h-5 w-5" />;
-      case "phone":
-        return <Phone className="h-5 w-5" />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <section className="py-12 md:py-24">
-      <div className="container px-4 md:px-6 mx-auto">
+      <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           title="Get In Touch"
-          subtitle="Have a project in mind or want to collaborate? I&apos;d love to hear from you!"
+          subtitle="Have a project in mind or want to collaborate? I'd love to hear from you!"
         />
 
-        <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -88,10 +73,8 @@ export default function ContactPage() {
                 ))}
 
                 <div className="mt-auto pt-6">
-                  <h3 className="font-medium mb-2">Current Location</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Boston, Massachusetts, USA
-                  </p>
+                  <h3 className="mb-2 font-medium">Current Location</h3>
+                  <p className="text-sm text-muted-foreground">Boston, Massachusetts, USA</p>
                 </div>
               </CardContent>
             </Card>
