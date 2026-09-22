@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { z } from "zod";
+import { useState } from "react";
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,36 +17,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "framer-motion";
+import { contactSchema, HONEYPOT_FIELD } from "@/lib/contact-schema";
 
-// Validation schema using zod
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  subject: z.string().min(5, {
-    message: "Subject must be at least 5 characters.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-});
+const formSchema = contactSchema;
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Cleanup timeout if component unmounts mid-submission
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   // Initialize form with validation
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,18 +37,28 @@ export function ContactForm() {
     },
   });
 
-  // Form submission handler
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
+    setSendError(null);
 
-    timeoutRef.current = setTimeout(() => {
-      // TODO: Wire up contact form backend (e.g. Resend, SendGrid)
-      void values;
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      form.reset();
-      timeoutRef.current = null;
-    }, 1500);
+    const honeypot = (document.getElementById(HONEYPOT_FIELD) as HTMLInputElement | null)?.value;
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...values, [HONEYPOT_FIELD]: honeypot ?? "" }),
+    }).catch(() => null);
+
+    setIsSubmitting(false);
+
+    if (!response?.ok) {
+      const payload = await response?.json().catch(() => null);
+      setSendError(payload?.error ?? "Something went wrong. Email me directly instead.");
+      return;
+    }
+
+    setIsSubmitted(true);
+    form.reset();
   }
 
   return (
@@ -128,6 +116,17 @@ export function ContactForm() {
         >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+                <label htmlFor={HONEYPOT_FIELD}>Company</label>
+                <input
+                  id={HONEYPOT_FIELD}
+                  name={HONEYPOT_FIELD}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  defaultValue=""
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="name"
@@ -184,6 +183,15 @@ export function ContactForm() {
                   </FormItem>
                 )}
               />
+              {sendError && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive"
+                >
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{sendError}</span>
+                </div>
+              )}
               <Button type="submit" disabled={isSubmitting} className="w-full">
                 {isSubmitting ? (
                   <motion.div
