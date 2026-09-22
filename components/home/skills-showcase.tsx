@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { skills, type SkillCategory } from "@/data/skills";
 
 export function SkillsShowcase() {
-  const [selectedCategory, setSelectedCategory] = useState<SkillCategory>("Languages");
+  const [selectedCategory, setSelectedCategory] = useState<SkillCategory>("AI/LLM");
   const categories = Object.keys(skills) as SkillCategory[];
 
   return (

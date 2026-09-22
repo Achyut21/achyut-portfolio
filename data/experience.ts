@@ -14,19 +14,38 @@ export interface Experience {
 export const experiences: Experience[] = [
   // ── Current Roles ──────────────────────────────────────────────────
   {
+    id: "maven-realty",
+    title: "Software Engineer Co-op",
+    company: "Maven Realty",
+    location: "Cambridge, Massachusetts, USA",
+    startDate: "June 2026",
+    endDate: "December 2026",
+    description:
+      "Working across three codebases at a Boston-area brokerage: the Aptava agent platform, its Express API, and the public rentals site at mavenrealty.com.",
+    achievements: [
+      "Owned the lease and DocuSign pipeline, the listing PDF export, and the showing scheduler in Aptava",
+      "Built the public rentals site at mavenrealty.com in Vue 3 and Vite",
+      "Debugged production incidents across Nginx, Elastic Beanstalk, and the AWS SDK, and upgraded the agent app 9 Angular major versions",
+      "Split large branches into stacked pull requests to keep each diff reviewable",
+    ],
+    type: "work",
+  },
+  {
     id: "mit-bitcoin-expo",
     title: "Co-Chair, Hackathon & Marketing",
     company: "MIT Bitcoin Expo",
     location: "Cambridge, Massachusetts, USA",
     startDate: "January 2026",
+    // CONFIRM: spec proposes "April 2026" here. Left as "Present" pending your answer — has the role ended, or does it run past the April 2026 conference?
     endDate: "Present",
     description:
-      "Co-chairing the hackathon and marketing efforts for the 13th Annual MIT Bitcoin Expo, the longest-running university-hosted Bitcoin event.",
+      "Co-chaired the hackathon and marketing for the 13th Annual MIT Bitcoin Expo, the longest-running university-hosted Bitcoin event.",
     achievements: [
-      "Co-chair of the 36-hour hackathon with a community-first prize model (70% shared among qualifying participants)",
-      "Designed and built the official event website (mitbitcoinexpo.org) with Next.js, Three.js, and Vercel",
-      "Coordinated speaker lineup, sponsor outreach, and marketing campaigns for the April 2026 conference",
-      "Managing cross-functional collaboration across engineering, design, and operations teams",
+      "Moderated the Infrastructure Panel with Austin Federa and Muriel Médard",
+      "Designed the challenge tracks and prize structure for a 36-hour hackathon, 47 teams and 150 participants against a $20K pool, on a community-first model that shares 70% among qualifying participants",
+      "Judged alongside VCs, angel investors, and senior engineers",
+      "Ran speaker coordination and sponsor outreach for the April 2026 conference",
+      "Built the official event site at mitbitcoinexpo.org with Next.js, Three.js, and Vercel",
     ],
     type: "leadership",
   },
@@ -36,13 +55,13 @@ export const experiences: Experience[] = [
     company: "Northeastern University",
     location: "Boston, Massachusetts, USA",
     startDate: "September 2025",
-    endDate: "Present",
+    endDate: "April 2026",
     description:
-      "Serving as a Teaching Assistant for CS2000, supporting students across two consecutive semesters.",
+      "Teaching assistant for CS2000, Logic and Computation, across two consecutive semesters.",
     achievements: [
-      "Supporting students through office hours, grading, and one-on-one mentoring across Fall 2025 and Spring 2026",
-      "Assisting the instructor with course logistics, assignment feedback, and classroom support",
-      "Providing guidance to students on coursework and academic development",
+      "Selected across Fall 2025 and Spring 2026 for a 500+ student introductory course",
+      "Held 4 hours of weekly office hours and graded 500+ assignments and exams",
+      "Wrote model-solution writeups on recursion, higher-order functions, and tree abstractions in Python and Pyret",
     ],
     type: "work",
   },
@@ -56,12 +75,13 @@ export const experiences: Experience[] = [
     startDate: "January 2024",
     endDate: "June 2024",
     description:
-      "Designed and implemented a web portal for faculty-student collaboration in UROP and Capstone projects.",
+      "Built a web portal for faculty-student collaboration on UROP and Capstone projects.",
     achievements: [
-      "Developed a full-stack web portal using React.js, Node.js, and MongoDB for 3000+ UROP/Capstone students",
-      "Enabled task tracking, document sharing, and access control to streamline collaboration",
-      "Optimized and enhanced UI/UX, reducing page load time by 60% and improving responsiveness across devices",
-      "Achieved 75% grading accuracy improvement and 50% evaluation efficiency boost through workflow automation",
+      "Built a full-stack portal in React, Node, and MongoDB serving 3000+ UROP and Capstone students",
+      "Added task tracking, document sharing, and access control so faculty and students worked in one place",
+      // VERIFY: page load time reduced by 60%
+      // VERIFY: 75% grading accuracy improvement
+      // VERIFY: 50% evaluation efficiency boost
     ],
     type: "work",
   },
@@ -73,12 +93,15 @@ export const experiences: Experience[] = [
     startDate: "October 2023",
     endDate: "June 2024",
     description:
-      "Directed technical operations for university events, encompassing website development and promotional materials.",
+      "Ran technical operations for university events, from event sites through payment and registration flows.",
     achievements: [
-      "Orchestrated technical operations for 30+ university events, designing and deploying websites with integrated payment gateways",
-      "Increased event participation by 25% through effective technical solutions",
-      "Engineered dashboards and automated flows, increasing user satisfaction by 75% and cutting coordination time by 60%",
-      "Ensured smooth execution through cross-functional collaboration, achieving 95% client satisfaction",
+      "Handled technical operations for 30+ university events",
+      // VERIFY: 25% increase in event participation
+      "Built and deployed event websites with payment gateways integrated",
+      "Built dashboards and automated coordination flows for event teams",
+      // VERIFY: 75% increase in user satisfaction
+      // VERIFY: 60% cut in coordination time
+      // VERIFY: 95% client satisfaction
     ],
     type: "work",
   },
@@ -94,10 +117,11 @@ export const experiences: Experience[] = [
     description:
       "Research under Dr. Sambit Kumar Mishra on detecting DDoS attacks in cloud environments using deep learning techniques.",
     achievements: [
-      "Developed advanced anomaly detection algorithms, achieving an impressive 82% accuracy in threat detection",
-      "Swiftly implemented countermeasures to thwart potential attacks, resulting in a 40% reduction in security breaches",
-      "Applied deep learning models to identify patterns in network traffic for real-time detection of suspicious activities",
-      "Created a scalable monitoring system to handle large volumes of cloud traffic with minimal false positives",
+      "Built anomaly detection algorithms that reached 82% accuracy on threat detection",
+      "Applied deep learning models to network traffic to flag suspicious patterns in real time",
+      "Implemented countermeasures against detected attacks",
+      // VERIFY: 40% reduction in security breaches
+      "Built a monitoring system for high-volume cloud traffic that kept false positives low",
     ],
     type: "research",
   },
@@ -111,10 +135,10 @@ export const experiences: Experience[] = [
     description:
       "Research under Prof. T. Ragunathan on predicting student acceptance into Master's programs based on academic performance metrics.",
     achievements: [
-      "Developed an AI ML model predicting student acceptance into Masters PG College with 78% accuracy",
-      "Trained the model on diverse exam scores to suggest colleges based on proximity to students' IELTS, GRE, and TOEFL scores",
-      "Led data acquisition and cleansing, ensuring dataset integrity with a 95% accuracy rate",
-      "Optimized the algorithm for efficiency and reliability in making personalized education recommendations",
+      "Built a model predicting student acceptance into Master's programs with 78% accuracy",
+      "Trained it on exam scores and suggested colleges by proximity to a student's IELTS, GRE, and TOEFL results",
+      "Ran data acquisition and cleaning for the training set",
+      // VERIFY: 95% dataset accuracy rate
     ],
     type: "research",
   },
@@ -128,12 +152,10 @@ export const experiences: Experience[] = [
     startDate: "August 2023",
     endDate: "May 2024",
     description:
-      "Oversaw technical operations for university events and initiatives as part of the Student Council.",
+      "Technical operations for university events and initiatives as part of the Student Council.",
     achievements: [
-      "Oversaw technical operations, utilizing advanced methodologies to achieve project milestones",
-      "Engineered and enhanced event websites for cultural festivals, ensuring top-tier performance with creative designs",
-      "Managed audiovisual equipment, software applications, and ensured seamless online and offline interactions",
-      "Resolved technical issues promptly, minimizing disruptions and maintaining high standards of execution",
+      "Built and maintained event websites for cultural festivals",
+      "Ran audiovisual equipment and event software on the day, and handled failures live",
     ],
     type: "leadership",
   },
@@ -144,13 +166,12 @@ export const experiences: Experience[] = [
     location: "Vijayawada, India",
     startDate: "May 2022",
     endDate: "May 2024",
-    description:
-      "Led the university's technical team, organizing and executing technical aspects of student events.",
+    description: "Led the Student Council technical team across two years of university events.",
     achievements: [
-      "Led multidisciplinary technical team, achieving seamless collaboration and innovative solutions",
-      "Organized brainstorming sessions with team members to generate website ideas and review progress",
-      "Increased student engagement by 40% through committee formation and industry-aligned website redesigns",
-      "Bridged the gap between technical requirements and student initiatives",
+      "Led the technical team through two years of cultural and technical events",
+      "Ran the team's planning sessions for new event sites and reviewed work in progress",
+      // VERIFY: 40% increase in student engagement
+      "Turned event requirements from non-technical organizers into something buildable",
     ],
     type: "leadership",
   },
@@ -162,12 +183,10 @@ export const experiences: Experience[] = [
     startDate: "May 2021",
     endDate: "May 2022",
     description:
-      "Served as an active member of the university's student council, contributing to student initiatives.",
+      "Council member at SRM University - AP, on events and the technical side of student programs.",
     achievements: [
-      "Played a pivotal role in organizing and executing various student events and initiatives",
-      "Collaborated effectively with peers and faculty ensuring the smooth execution of events",
-      "Enhanced the overall student experience through meticulous planning and coordination",
-      "Contributed to website development and technical aspects of student programs",
+      "Organized and ran student events alongside peers and faculty",
+      "Worked on the council's website and the technical side of student programs",
     ],
     type: "leadership",
   },
@@ -178,13 +197,10 @@ export const experiences: Experience[] = [
     location: "Vijayawada, India",
     startDate: "November 2020",
     endDate: "May 2021",
-    description:
-      "Started as an affiliate member in the student council, supporting various initiatives.",
+    description: "First-year affiliate member of the student council.",
     achievements: [
-      "Assisted in the organization and execution of student events",
-      "Supported the technical team with website and digital content",
-      "Contributed to planning and logistics for university programs",
-      "Participated in student engagement activities and feedback collection",
+      "Supported event organization and logistics as a first-year council member",
+      "Worked with the technical team on the council website and digital content",
     ],
     type: "leadership",
   },

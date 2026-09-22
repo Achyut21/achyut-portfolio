@@ -8,7 +8,7 @@ export interface Achievement {
 export const achievements: Achievement[] = [
   {
     id: "hacker-house",
-    title: "Winner of Hacker House, Goa ($1500 Prize)",
+    title: "Winner of Hacker House, Goa — Nillion and Aptos tracks ($1500 Prize)",
     icon: "trophy",
     colorClass: "text-yellow-600 dark:text-yellow-400",
   },
@@ -43,6 +43,12 @@ export const achievements: Achievement[] = [
     colorClass: "text-amber-600 dark:text-amber-400",
   },
   {
+    id: "infrastructure-panel",
+    title: "Moderator, Infrastructure Panel — MIT Bitcoin Expo 2026",
+    icon: "book-open",
+    colorClass: "text-sky-600 dark:text-sky-400",
+  },
+  {
     id: "add-convener",
     title: "Convener of ADD (App Design & Development Club)",
     icon: "book-open",
@@ -60,6 +66,8 @@ export const achievements: Achievement[] = [
     icon: "code",
     colorClass: "text-teal-600 dark:text-teal-400",
   },
+  // CONFIRM: spec calls this a taste call, keep or cut. Left in place.
+  // Cutting it also makes the "Gaming" tag below dead.
   {
     id: "valorant",
     title: "3x Valorant Tournament Champion",

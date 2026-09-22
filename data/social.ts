@@ -27,7 +27,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: "phone",
     name: "Phone",
-    url: "tel:+18575766733",
+    url: "tel:+18575767633",
     icon: "phone",
   },
 ];

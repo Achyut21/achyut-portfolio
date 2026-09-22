@@ -55,9 +55,11 @@ export default function AboutPage() {
                 <CardContent className="space-y-4 p-6 leading-relaxed">
                   <p>
                     I&apos;m Achyut Katiyar, a software engineer pursuing a Master&apos;s in
-                    Computer Science at Northeastern University. I build full-stack applications and
-                    decentralized systems — from production websites serving thousands of users to
-                    blockchain platforms that have won multiple hackathon prizes.
+                    Computer Science at Northeastern University. Most of what I build now runs on
+                    top of language models. PayPhone is an agent that takes one spending
+                    authorization and settles $0.01 per active second of a video call on Base.
+                    PayGuard AI puts GPT-4 function calling behind a spend limit, and SkillBridge AI
+                    pairs GPT-4 with ElevenLabs voice across 70+ components and 14 API endpoints.
                   </p>
                   <p>
                     I&apos;m currently Co-Chair of Hackathon and Marketing for the MIT Bitcoin Expo,
@@ -65,10 +67,13 @@ export default function AboutPage() {
                     also serve as a Teaching Assistant for CS2000 at Northeastern.
                   </p>
                   <p>
-                    My work spans the full stack — Next.js, React, Node.js, TypeScript on the
-                    frontend and backend, Solidity and TEALScript for smart contracts, Python for
-                    data analysis and ML, and Docker/Kubernetes for infrastructure. I&apos;ve won
-                    over $3,000 in hackathon prizes and built projects used by thousands.
+                    At Maven Realty I work full stack across three codebases: the Aptava agent
+                    platform in Angular, its Express API, and the public rentals site in Vue 3. That
+                    is where the production engineering lives, from an 18-document DocuSign lease
+                    pipeline to a socket leak that was killing lease drafts in production. The range
+                    runs wider than that. Solidity and Move smart contracts, a C++ Kanban board with
+                    primary-backup replication and vector clocks, and two undergrad ML research
+                    projects at 82% and 78% accuracy. I&apos;ve won over $3,000 in hackathon prizes.
                   </p>
                 </CardContent>
               </Card>
@@ -117,7 +122,7 @@ export default function AboutPage() {
                 {Object.keys(skills).map((category) => (
                   <Card key={category}>
                     <CardContent className="p-5">
-                      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+                      <h3 className="mb-3 text-sm font-semibold tracking-wider text-primary uppercase">
                         {category}
                       </h3>
                       <div className="flex flex-wrap gap-2">

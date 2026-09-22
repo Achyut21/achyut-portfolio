@@ -11,12 +11,7 @@ import { socialLinks } from "@/data/social";
 import { getIconComponent } from "@/lib/icons";
 import { StarHeader } from "@/components/shared/star-header";
 
-const displayedSkills = [
-  "Software Engineer",
-  "Full Stack Developer",
-  "Blockchain Builder",
-  "Systems Thinker",
-];
+const displayedSkills = ["AI Engineer", "Agents & LLM Systems", "Full Stack Engineer"];
 
 export function Hero() {
   const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
@@ -77,8 +72,9 @@ export function Hero() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="max-w-[600px] text-muted-foreground md:text-xl"
                 >
-                  Software engineer building full-stack applications and decentralized systems. MS
-                  Computer Science at Northeastern University. Co-Chair of MIT Bitcoin Expo.
+                  AI engineer and full stack developer building agents, LLM applications, and the
+                  production systems behind them. MS Computer Science at Northeastern University.
+                  Co-Chair of MIT Bitcoin Expo.
                 </motion.p>
               </div>
 

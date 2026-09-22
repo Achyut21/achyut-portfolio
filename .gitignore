@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# working notes
+PORTFOLIO-REWRITE-2026-09-21.md

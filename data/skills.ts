@@ -1,5 +1,6 @@
 // data/skills.ts
 export type SkillCategory =
+  | "AI/LLM"
   | "Languages"
   | "Frameworks/Libraries"
   | "ML/Data"
@@ -14,41 +15,40 @@ export interface Skill {
 }
 
 export const skills: Record<SkillCategory, Skill[]> = {
+  "AI/LLM": [
+    { name: "OpenAI API", category: "AI/LLM", logoKey: "openai" },
+    { name: "Anthropic API", category: "AI/LLM", logoKey: "anthropic" },
+    { name: "GPT-4", category: "AI/LLM", logoKey: "openai" },
+    { name: "Function Calling", category: "AI/LLM", logoKey: "github" },
+    { name: "Tool Use", category: "AI/LLM", logoKey: "github" },
+    { name: "Model Context Protocol", category: "AI/LLM", logoKey: "anthropic" },
+    { name: "ElevenLabs", category: "AI/LLM", logoKey: "elevenlabs" },
+    { name: "Prompt Engineering", category: "AI/LLM", logoKey: "github" },
+  ],
   Languages: [
     { name: "C++", category: "Languages", logoKey: "cplusplus" },
     { name: "Java", category: "Languages", logoKey: "java" },
     { name: "Python", category: "Languages", logoKey: "python" },
     { name: "JavaScript", category: "Languages", logoKey: "javascript" },
     { name: "TypeScript", category: "Languages", logoKey: "typescript" },
-    { name: "Dart", category: "Languages", logoKey: "dart" },
-    { name: "Kotlin", category: "Languages", logoKey: "kotlin" },
     { name: "Solidity", category: "Languages", logoKey: "solidity" },
     { name: "SQL", category: "Languages", logoKey: "mysql" },
-    { name: "Rust", category: "Languages", logoKey: "rust" },
-    { name: "Go", category: "Languages", logoKey: "go" },
-    { name: "Ruby", category: "Languages", logoKey: "ruby" },
-    { name: "Swift", category: "Languages", logoKey: "swift" },
   ],
   "Frameworks/Libraries": [
     { name: "React.js", category: "Frameworks/Libraries", logoKey: "react" },
     { name: "Node.js", category: "Frameworks/Libraries", logoKey: "nodejs" },
     { name: "Next.js", category: "Frameworks/Libraries", logoKey: "nextjs" },
-    { name: "Flask", category: "Frameworks/Libraries", logoKey: "flask" },
     { name: "Express.js", category: "Frameworks/Libraries", logoKey: "express" },
     { name: "Tailwind CSS", category: "Frameworks/Libraries", logoKey: "tailwindcss" },
     { name: "Android SDK", category: "Frameworks/Libraries", logoKey: "android" },
     { name: "Three.js", category: "Frameworks/Libraries", logoKey: "threejs" },
     { name: "Vue.js", category: "Frameworks/Libraries", logoKey: "vuejs" },
     { name: "Angular", category: "Frameworks/Libraries", logoKey: "angularjs" },
-    { name: "Svelte", category: "Frameworks/Libraries", logoKey: "svelte" },
-    { name: "Django", category: "Frameworks/Libraries", logoKey: "django" },
     { name: "Spring Boot", category: "Frameworks/Libraries", logoKey: "spring" },
-    { name: "Flutter", category: "Frameworks/Libraries", logoKey: "flutter" },
-    { name: "React Native", category: "Frameworks/Libraries", logoKey: "react" },
+    { name: "Puppeteer", category: "Frameworks/Libraries", logoKey: "puppeteer" },
+    { name: "Mongoose", category: "Frameworks/Libraries", logoKey: "mongoose" },
   ],
   "ML/Data": [
-    { name: "TensorFlow", category: "ML/Data", logoKey: "tensorflow" },
-    { name: "PyTorch", category: "ML/Data", logoKey: "pytorch" },
     { name: "Supervised Learning", category: "ML/Data", logoKey: "python" },
     { name: "Deep Learning", category: "ML/Data", logoKey: "tensorflow" },
     { name: "Neural Networks", category: "ML/Data", logoKey: "python" },
@@ -68,13 +68,16 @@ export const skills: Record<SkillCategory, Skill[]> = {
   ],
   "Cloud/DevOps": [
     { name: "AWS", category: "Cloud/DevOps", logoKey: "amazonwebservices" },
-    { name: "GCP", category: "Cloud/DevOps", logoKey: "googlecloud" },
+    { name: "Elastic Beanstalk", category: "Cloud/DevOps", logoKey: "amazonwebservices" },
+    { name: "CloudFront", category: "Cloud/DevOps", logoKey: "amazonwebservices" },
+    { name: "Terraform", category: "Cloud/DevOps", logoKey: "terraform" },
     { name: "Docker", category: "Cloud/DevOps", logoKey: "docker" },
     { name: "Kubernetes", category: "Cloud/DevOps", logoKey: "kubernetes" },
-    { name: "Jenkins", category: "Cloud/DevOps", logoKey: "jenkins" },
+    { name: "Nginx", category: "Cloud/DevOps", logoKey: "nginx" },
     { name: "Firebase", category: "Cloud/DevOps", logoKey: "firebase" },
     { name: "MongoDB", category: "Cloud/DevOps", logoKey: "mongodb" },
     { name: "PostgreSQL", category: "Cloud/DevOps", logoKey: "postgresql" },
+    { name: "Redis", category: "Cloud/DevOps", logoKey: "redis" },
   ],
   Concepts: [
     { name: "System Design", category: "Concepts", logoKey: "github" },
